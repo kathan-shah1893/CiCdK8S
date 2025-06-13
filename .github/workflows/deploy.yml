@@ -22,7 +22,7 @@ jobs:
         run: |
           echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yaml
           export KUBECONFIG=kubeconfig.yaml
-
+      
       - name: Set Kubernetes API Server
         run: |
           kubectl config set-cluster local-cluster --server=https://127.0.0.1:58699
