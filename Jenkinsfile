@@ -34,8 +34,8 @@ pipeline {
                     bat """
                     echo Using kubeconfig from credentials
                     kubectl config use-context minikube
-                    kubectl set image deployment/jdsession13-backend jdsession13-backend=%IMAGE_NAME%:latest
-                    kubectl rollout status deployment/jdsession13-backend
+                    kubectl set image deployment/django django=%IMAGE_NAME%:latest
+                    kubectl rollout status deployment/django
                     """
                 }
             }
