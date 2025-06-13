@@ -19,12 +19,12 @@ pipeline {
             }
         }
 
-       stage('Push Docker Image') {
+   stage('Push Docker Image') {
     steps {
-        bat """
-        echo "kathan^@1234" | docker login -u kathanshah1893 --password-stdin
-        docker push %IMAGE_NAME%:latest
-        """
+        bat '''
+        docker login -u kathanshah1893 -p "kathan@1234"
+        docker push kathanshah1893/jdsession13-backend:latest
+        '''
     }
 }
 
