@@ -1,4 +1,4 @@
-name: CI/CD for Django on Kubernetes (Minikube)
+name: CI/CD for Django on Kubernetes (Windows)
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest  # Use Windows runner
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -20,12 +20,14 @@ jobs:
 
       - name: Configure Kubernetes Access
         run: |
-          echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yaml
-          export KUBECONFIG=kubeconfig.yaml
-      
-      - name: Set Kubernetes Context (Correct Context Name)
+          echo "${{ secrets.KUBECONFIG }}" | Out-File -Encoding ascii kubeconfig.yaml
+          $env:KUBECONFIG = "kubeconfig.yaml"
+
+      - name: Set Kubernetes Context (Auto-Detect)
         run: |
-          kubectl config use-context minikube
+          $CONTEXT_NAME = kubectl config current-context
+          Write-Output "Using Kubernetes context: $CONTEXT_NAME"
+          kubectl config use-context $CONTEXT_NAME
 
       - name: Update Kubernetes Deployment
         run: |
