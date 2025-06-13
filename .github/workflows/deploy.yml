@@ -33,4 +33,3 @@ jobs:
         run: |
           kubectl set image deployment/jdsession13-backend jdsession13-backend=kathanshah1893/jdsession13-backend:latest
           kubectl rollout status deployment/jdsession13-backend
-K
