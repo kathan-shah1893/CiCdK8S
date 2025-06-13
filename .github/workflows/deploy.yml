@@ -25,10 +25,6 @@ jobs:
           export KUBECONFIG=kubeconfig.yaml
           sleep 10  # Wait for kubeconfig to be ready
       
-      - name: Set Kubernetes Context (Auto-Detect)
-        run: |
-          kubectl config use-context minikube
-
       - name: Update Kubernetes Deployment
         run: |
           kubectl set image deployment/jdsession13-backend jdsession13-backend=kathanshah1893/jdsession13-backend:latest
