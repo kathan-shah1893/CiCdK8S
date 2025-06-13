@@ -25,7 +25,7 @@ jobs:
       
       - name: Set Kubernetes Context (Correct Context Name)
         run: |
-          kubectl config use-context $(kubectl config current-context)
+          kubectl config use-context minikube
 
       - name: Update Kubernetes Deployment
         run: |
