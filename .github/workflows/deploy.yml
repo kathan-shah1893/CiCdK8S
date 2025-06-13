@@ -1,13 +1,13 @@
-name: CI/CD for Django on Kubernetes
+name: CI/CD for Django on Local Kubernetes (Windows)
 
 on:
   push:
     branches:
-      - main  # Trigger on changes to the main branch
+      - main
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -20,10 +20,14 @@ jobs:
 
       - name: Configure Kubernetes Access
         run: |
-          echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yaml
-          export KUBECONFIG=kubeconfig.yaml
+          echo "${{ secrets.KUBECONFIG }}" | Out-File -Encoding ascii kubeconfig.yaml
+          $env:KUBECONFIG = "kubeconfig.yaml"
 
-      - name: Update Kubernetes Deployment
+      - name: Set Kubernetes Context
         run: |
-          kubectl set image deployment/jdsession13-backend jdsession13-backend=kathanshah1893/jdsession13-backend:latest --namespace=my-namespace
-          kubectl rollout status deployment/jdsession13-backend --namespace=my-namespace
+          kubectl config use-context docker-desktop || kubectl config use-context minikube
+
+      - name: Update Kubernetes Deployment (Default Namespace)
+        run: |
+          kubectl set image deployment/jdsession13-backend jdsession13-backend=kathanshah1893/jdsession13-backend:latest
+          kubectl rollout status deployment/jdsession13-backend
