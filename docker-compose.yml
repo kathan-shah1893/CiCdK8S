@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:latest
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_DATABASE: mydatabase
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    build: .
+    container_name: django_backend
+    restart: always
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: mysql://root:@db:3306/mydatabase
+    ports:
+      - "8000:8000"
+
+volumes:
+  mysql_data:

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-secret
+type: Opaque
+data:
+  MYSQL_ROOT_PASSWORD: ""  # Base64 encoded password (example: "password")
+  MYSQL_DATABASE: "bXlkYXRhYmFzZQ=="  # Base64 encoded database name (example: "mydatabase")
+  MYSQL_USER: "dXNlcg=="  # Base64 encoded username (example: "user")
+  MYSQL_PASSWORD: "cGFzc3dvcmQ="  # Base64 encoded password for the user (example: "password")

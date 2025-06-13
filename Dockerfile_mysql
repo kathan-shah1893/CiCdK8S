@@ -1,0 +1,9 @@
+FROM mysql:latest
+
+# Set environment variables
+ENV MYSQL_ROOT_PASSWORD=""
+ENV MYSQL_DATABASE=mydatabase
+ENV MYSQL_ALLOW_EMPTY_PASSWORD=yes
+
+# Expose MySQL port
+EXPOSE 3306

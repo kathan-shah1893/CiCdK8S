@@ -1,0 +1,4 @@
+django>=4.2,<5.0  # Adjust version based on your project
+mysqlclient>=2.1.1  # Required for MySQL support
+gunicorn>=21.2.0  # Production WSGI server (optional)
+pymysql>=1.1.0  # Alternative MySQL adapter (if needed)
