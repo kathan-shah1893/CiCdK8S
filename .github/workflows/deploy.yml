@@ -1,4 +1,4 @@
-name: CI/CD for Django on Kubernetes (Windows)
+name: CI/CD for Django on Kubernetes
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: windows-latest  # Use Windows runner
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -20,9 +20,9 @@ jobs:
 
       - name: Configure Kubernetes Access
         run: |
-          echo "${{ secrets.KUBECONFIG }}" | Out-File -Encoding ascii kubeconfig.yaml
-          $env:KUBECONFIG = "kubeconfig.yaml"
-
+          echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yaml
+          export KUBECONFIG=kubeconfig.yaml
+      
       - name: Set Kubernetes Context (Auto-Detect)
         run: |
           $CONTEXT_NAME = kubectl config current-context
@@ -33,3 +33,4 @@ jobs:
         run: |
           kubectl set image deployment/jdsession13-backend jdsession13-backend=kathanshah1893/jdsession13-backend:latest
           kubectl rollout status deployment/jdsession13-backend
+K
