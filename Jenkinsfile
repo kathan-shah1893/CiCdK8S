@@ -22,7 +22,7 @@ pipeline {
        stage('Push Docker Image') {
     steps {
         bat """
-        echo "kathan@1234" | docker login -u kathanshah1893 --password-stdin
+        echo "kathan^@1234" | docker login -u kathanshah1893 --password-stdin
         docker push %IMAGE_NAME%:latest
         """
     }
