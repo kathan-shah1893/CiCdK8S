@@ -30,7 +30,7 @@ pipeline {
 
         stage('Deploy to Minikube') {
             steps {
-                withCredentials([file(credentialsId: 'kubeconfig-windows', variable: 'KUBECONFIG')]) {
+                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                     bat """
                     echo Using kubeconfig from credentials
                     kubectl config use-context minikube
