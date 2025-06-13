@@ -23,12 +23,11 @@ jobs:
           echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yaml
           cat kubeconfig.yaml
           export KUBECONFIG=kubeconfig.yaml
+          sleep 10  # Wait for kubeconfig to be ready
       
       - name: Set Kubernetes Context (Auto-Detect)
         run: |
-          CONTEXT_NAME=$(kubectl config current-context)
-          echo "Using Kubernetes context: $CONTEXT_NAME"
-          kubectl config use-context $CONTEXT_NAME
+          kubectl config use-context minikube
 
       - name: Update Kubernetes Deployment
         run: |
