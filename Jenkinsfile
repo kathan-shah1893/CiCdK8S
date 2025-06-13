@@ -19,20 +19,14 @@ pipeline {
             }
         }
 
-        stage('Push Docker Image') {
-            steps {
-                withCredentials([usernamePassword(
-                    credentialsId: 'dockerhub-creds',  // Replace with your DockerHub credential ID
-                    usernameVariable: 'DOCKER_USERNAME',
-                    passwordVariable: 'DOCKER_PASSWORD'
-                )]) {
-                    bat """
-                    echo %DOCKER_PASSWORD% | docker login -u %DOCKER_USERNAME% --password-stdin
-                    docker push %IMAGE_NAME%:latest
-                    """
-                }
-            }
-        }
+       stage('Push Docker Image') {
+    steps {
+        bat """
+        echo kathan@1234 | docker login -u kathanshah1893 --password-stdin
+        docker push %IMAGE_NAME%:latest
+        """
+    }
+}
 
         stage('Deploy to Minikube') {
             steps {
