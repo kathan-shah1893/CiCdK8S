@@ -1,4 +1,4 @@
-name: CI/CD for Django on Kubernetes
+name: CI/CD for Django on Kubernetes (Minikube)
 
 on:
   push:
@@ -23,10 +23,9 @@ jobs:
           echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yaml
           export KUBECONFIG=kubeconfig.yaml
       
-      - name: Set Kubernetes API Server
+      - name: Set Kubernetes Context (Correct Context Name)
         run: |
-          kubectl config set-cluster minikube --server=https://127.0.0.1:58699
-          kubectl config use-context minikube
+          kubectl config use-context $(kubectl config current-context)
 
       - name: Update Kubernetes Deployment
         run: |
