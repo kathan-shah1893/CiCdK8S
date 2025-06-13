@@ -25,8 +25,8 @@ jobs:
       
       - name: Set Kubernetes API Server
         run: |
-          kubectl config set-cluster local-cluster --server=https://127.0.0.1:58699
-          kubectl config use-context local-cluster
+          kubectl config set-cluster minikube --server=https://127.0.0.1:58699
+          kubectl config use-context minikube
 
       - name: Update Kubernetes Deployment
         run: |
